@@ -1,0 +1,57 @@
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+  }
+  
+  ol, ul {
+    padding-left: 30px;
+  }
+
+  .todoapp {
+    margin: 50px 0 0 95px;
+  }
+
+  .header {
+    max-width: 35%;
+    background-color: #ebeded;
+    color: #466666;
+    font-weight: lighter;
+    font-size: xx-large;
+    text-align: center;
+  }
+
+  .new-task {
+    color: #14141f;
+  }
+
+  ::placeholder {
+    font-style: italic;
+    color: gray;
+    font-size: medium;
+  }
+
+  .existing-tasks {
+    /* flexbox css tricks */
+    display: flex; 
+    flex-direction: column;
+    max-width: 35%;
+    background-color: #fafafa;
+  }
+
+  .task-parent {
+    /* flexbox css tricks */
+    display: flex; 
+    flex-flow: row nowrap;
+    justify-content: space-around;
+  }
+
+  .task-child {
+    text-align: left;
+    font-size: medium;
+    color: #29293d;
+  }
+
+  .inactive-title {
+    text-decoration: line-through;
+    color: #d3d3d3;
+  }
