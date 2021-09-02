@@ -11,7 +11,7 @@ class Task (
         val userId: Long,
 
         @Column(name = "title")
-        val title: String?,
+        val title: String,
 
         @ManyToMany(mappedBy = "tasks")
         val collaborators: Set<User>? = setOf(),
