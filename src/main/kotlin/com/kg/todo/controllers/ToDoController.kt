@@ -126,6 +126,7 @@ class ToDoController () {
                 task.status = STATUS_INCOMPLETE
             }
         }
+        task.status = STATUS_COMPLETED
         tasksRepo.save(task)
         return ResponseEntity(task, HttpStatus.OK)
     }
@@ -182,7 +183,6 @@ class ToDoController () {
 //        }
 //        return pointsBalance
 //    }
-
 
 
 }

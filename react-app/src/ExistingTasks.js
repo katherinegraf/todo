@@ -8,6 +8,7 @@ library.add(fas)
 
 const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask, loading }) => {
 
+
     // const [incompleteTasks, setIncompleteTasks] = useState(null);
     // const [completedTasks, setCompletedTasks] = useState(null);
     // const [cancelledTasks, setCancelledTasks] = useState(null);
