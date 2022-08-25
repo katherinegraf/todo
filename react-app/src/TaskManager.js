@@ -68,6 +68,38 @@ const TaskManager = () => {
         setLoading(false);
     }
 
+    const completeOrActivateUrl = "//localhost:2000/completeOrActivateTask/"
+
+    async function completeOrActivateTask(id) {
+        setLoading(true);
+        let url = completeOrActivateUrl + id
+        let req = await fetch(url, {
+            method: 'PATCH',
+        });
+        if (req.status < 400) {
+            fetchData();
+        } else {
+            setError(true);
+        }
+        setLoading(false);
+    }
+
+    const reactivateUrl = "//localhost:2000/reactivateTask/"
+
+    async function reactivateTask(id) {
+        setLoading(true);
+        let url = reactivateUrl + id
+        let req = await fetch(url, {
+            method: 'PATCH',
+        });
+        if (req.status < 400) {
+            fetchData();
+        } else {
+            setError(true);
+        }
+        setLoading(false);
+    }
+
     return (
         <div className='todoapp w-100' >
             <header className='header'>

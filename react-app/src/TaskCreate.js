@@ -25,6 +25,7 @@ const TaskCreate = ({ fetchData }) => {
             // console.log('successfully added');
             setInputValue('');
             fetchData();
+            // TODO does app actually refresh after first task added?
         } else {
             setError(true);
             // console.log('failed to add');
