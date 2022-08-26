@@ -31,17 +31,12 @@ const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask
                             <div className='task-parent bt b--black-10'>
                                 <div className='complete-btn'>
                                     <label
-                                        onClick = {() =>
-                                            {
-                                                if (task.id === "incomplete") {
-                                                completeTask(task.id)
-                                            }
-                                            else
-                                                if (task.id === "complete") {
-                                                reactivateTask(task.id)
-                                            }
-                                        }
-                                    }
+                                        onClick = {() => {
+                                            if (task.status === "incomplete")
+                                                completeTask(task.id);
+                                            else if (task.status === "completed")
+                                                reactivateTask(task.id);
+                                        }}
                                     >
                                         {task.status === "incomplete" 
                                             ? <FontAwesomeIcon icon="check" />
@@ -49,16 +44,6 @@ const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask
                                         }
                                     </label>
                                 </div>
-                                {/* <div className='complete-btn'>
-                                    <label
-                                        onClick = {() => completeTask(task.id)}
-                                    >
-                                        {task.status === "incomplete" 
-                                            ? <FontAwesomeIcon icon="check" />
-                                            : <FontAwesomeIcon icon="check-square" />
-                                        }
-                                    </label>
-                                </div> */}
                                 <div className={
                                     task.status === "incomplete"
                                         ? 'task-child w-90'

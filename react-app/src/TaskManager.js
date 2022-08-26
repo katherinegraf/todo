@@ -112,6 +112,7 @@ const TaskManager = () => {
                 existingTasks = { existingTasks }
                 deleteTask = { deleteTask }
                 completeTask = { completeTask }
+                reactivateTask = { reactivateTask }
             />
         </div> 
     )
