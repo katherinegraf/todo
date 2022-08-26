@@ -8,11 +8,11 @@ const TaskCreate = ({ fetchData }) => {
     const [inputValue, setInputValue] = useState(undefined);
     const [error, setError] = useState(false);
 
-    function addNewTask (event) {
-        setNewTask(event.target.value);
+    function updateNewTask (value) {
+        setNewTask(value);
     }
 
-    async function submitNewTask (event) {
+    async function submitNewTask () {
         let formData = new FormData();
         formData.append('title', newTask);
         let req = {
@@ -22,6 +22,7 @@ const TaskCreate = ({ fetchData }) => {
         let resp = await fetch(ADD_TASK_URL, req);
         if (resp.status < 400) {
             setInputValue('');
+            setNewTask('');
             fetchData();
         } else {
             setError(true);
@@ -29,20 +30,28 @@ const TaskCreate = ({ fetchData }) => {
     }
 
     return (
-        <form>
-            <input 
-                className='new-task w-30'
-                type='text'
-                placeholder='What do you need to do?'
-                value={ inputValue }
-                onChange= {(event) => addNewTask(event)}
-            />
-            <button 
-                onClick= {(event) => submitNewTask(event)}
-            >
-                Submit
-            </button>
-        </form>
+            <form onSubmit={(event) => {
+                updateNewTask(event.target.value);
+            }}>
+                <div className='input-wrapper'>
+                    <input 
+                        className='new-task'
+                        type='text'
+                        placeholder='What do you need to do?'
+                        value={ inputValue }
+                        onChange= {(event) => {
+                            updateNewTask(event.target.value);
+                        }}
+                    />
+                    <button 
+                        className='input-form-button'
+                        onClick= {() => submitNewTask()}
+                        type='submit'
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
     );
 
   }

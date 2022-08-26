@@ -80,7 +80,7 @@ const TaskManager = () => {
     }
 
     return (
-        <div className='todoapp w-100' >
+        <div className='todoapp' >
             <header className='header'>
                 To Do
             </header>
