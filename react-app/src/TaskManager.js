@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ExistingTasks from './ExistingTasks';
 import TaskCreate from './TaskCreate';
 import { Tachyons } from 'tachyons';
+import { FETCH_URL, COMPLETE_URL, REACTIVATE_URL, DELETE_URL } from './settings';
 
 const TaskManager = () => {
 
@@ -11,7 +12,7 @@ const TaskManager = () => {
 
     // TODO change from static id to variable once there's login functionality
     const testUserId = 1
-    const fetchUrl = "http://localhost:2000/tasks/" + testUserId;
+    const fetchUrl = FETCH_URL + testUserId;
 
     useEffect( () => {
         fetchData();
@@ -36,11 +37,9 @@ const TaskManager = () => {
         setLoading(false);
     }
 
-    const deleteUrl = "//localhost:2000/deleteTask/"
-
     async function deleteTask(id) {
         setLoading(true);
-        let url = deleteUrl + id
+        let url = DELETE_URL + id
         let req = await fetch(url, {
             method: 'DELETE',
         });
@@ -52,11 +51,9 @@ const TaskManager = () => {
         setLoading(false);
     }
 
-    const completeUrl = "//localhost:2000/completeTask/"
-
     async function completeTask(id) {
         setLoading(true);
-        let url = completeUrl + id
+        let url = COMPLETE_URL + id
         let req = await fetch(url, {
             method: 'PATCH',
         });
@@ -67,28 +64,10 @@ const TaskManager = () => {
         }
         setLoading(false);
     }
-
-    const completeOrActivateUrl = "//localhost:2000/completeOrActivateTask/"
-
-    async function completeOrActivateTask(id) {
-        setLoading(true);
-        let url = completeOrActivateUrl + id
-        let req = await fetch(url, {
-            method: 'PATCH',
-        });
-        if (req.status < 400) {
-            fetchData();
-        } else {
-            setError(true);
-        }
-        setLoading(false);
-    }
-
-    const reactivateUrl = "//localhost:2000/reactivateTask/"
 
     async function reactivateTask(id) {
         setLoading(true);
-        let url = reactivateUrl + id
+        let url = REACTIVATE_URL + id
         let req = await fetch(url, {
             method: 'PATCH',
         });

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Tachyons } from 'tachyons';
+import{ ADD_TASK_URL } from './settings';
 
 const TaskCreate = ({ fetchData }) => {
 
     const [newTask, setNewTask] = useState(null);
     const [inputValue, setInputValue] = useState(undefined);
     const [error, setError] = useState(false);
-
-    const addTaskUrl = "//localhost:2000/addTask"
 
     function addNewTask (event) {
         setNewTask(event.target.value);
@@ -20,15 +19,12 @@ const TaskCreate = ({ fetchData }) => {
             method: 'POST',
             body: formData,
         }
-        let resp = await fetch(addTaskUrl, req);
+        let resp = await fetch(ADD_TASK_URL, req);
         if (resp.status < 400) {
-            // console.log('successfully added');
             setInputValue('');
             fetchData();
-            // TODO does app actually refresh after first task added?
         } else {
             setError(true);
-            // console.log('failed to add');
         }
     }
 
