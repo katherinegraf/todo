@@ -9,10 +9,10 @@ body {
 
   .todoapp {
     margin: 50px 0 0 95px;
+    width: 35%;
   }
 
   .header {
-    max-width: 35%;
     background-color: #ebeded;
     color: #466666;
     font-weight: lighter;
@@ -20,8 +20,26 @@ body {
     text-align: center;
   }
 
+  .input-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
   .new-task {
     color: #14141f;
+    padding: 10px;
+    width: 85%;
+
+  }
+  
+  .input-form-button {
+    width: 15%;
+    border: 1px solid #333;
+    border-radius: 0px;
+    text-align: center;
+    padding: 10px;
+    color: #FFF;
+    background-color: #333;
   }
 
   ::placeholder {
@@ -34,7 +52,7 @@ body {
     /* flexbox css tricks */
     display: flex; 
     flex-direction: column;
-    max-width: 35%;
+    /* max-width: 35%; */
     background-color: #fafafa;
   }
 

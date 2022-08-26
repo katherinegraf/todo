@@ -109,28 +109,6 @@ class ToDoController () {
         return ResponseEntity(task, HttpStatus.OK)
     }
 
-    @PatchMapping("completeOrReactivateTask/{id}")
-    fun completeOrReactivateTask(
-        @PathVariable id: Long
-    ): ResponseEntity<Task?> {
-        val task: Task? = tasksRepo.findByIdOrNull(id)
-        if (task === null) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-        if (task.status === STATUS_INCOMPLETE) {
-            logger.info("found incomplete status")
-            task.status = STATUS_COMPLETED
-        } else {
-            if (task.status === STATUS_COMPLETED) {
-                logger.info("found completed status")
-                task.status = STATUS_INCOMPLETE
-            }
-        }
-        task.status = STATUS_COMPLETED
-        tasksRepo.save(task)
-        return ResponseEntity(task, HttpStatus.OK)
-    }
-
     // TODO User functionality
 //    @PostMapping("/addUser")
 //    fun addUser(
