@@ -119,49 +119,4 @@ class ToDoController () {
 //        return ResponseEntity(user, HttpStatus.CREATED)
 //    }
 
-
-// ----- TECHNICAL INTERVIEW CODE PROBLEM FROM FETCH REWARDS -----
-//    @PostMapping("addPoints")
-//    fun addTransaction(
-//    ): MutableList<Points> {
-////        var list = mutableListOf<Points>()
-//        val transaction1 = Points(
-//            payer = "Dannon",
-//            points = 100,
-//            timestamp = LocalDateTime.now()
-//        )
-//        val transaction2 = Points(
-//            payer = "Tillamook",
-//            points = 75,
-//            timestamp = LocalDateTime.now().minusHours(4)
-//        )
-//        val transaction3 = Points(
-//            payer = "Dannon",
-//            points = 150,
-//            timestamp = LocalDateTime.now().minusDays(2)
-//        )
-//        list.add(transaction1)
-//        list.add(transaction2)
-//        list.add(transaction3)
-//        list.sortBy { it.timestamp }
-//        return list
-//    }
-//
-//    @GetMapping("points")
-//    fun showPoints(): MutableMap<String, Int> {
-//        val pointsBalance = mutableMapOf<String, Int>()
-//        list.forEach {
-//            if (it.payer in pointsBalance.keys) {
-//                // TODO find more elegant solution than two variables
-//                val currVal = pointsBalance.getValue(it.payer)
-//                val newVal = currVal + it.points
-//                pointsBalance[it.payer] = newVal
-//            } else {
-//                pointsBalance[it.payer] = it.points
-//            }
-//        }
-//        return pointsBalance
-//    }
-
-
 }
