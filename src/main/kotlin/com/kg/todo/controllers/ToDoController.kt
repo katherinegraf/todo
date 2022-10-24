@@ -110,13 +110,4 @@ class ToDoController () {
         return ResponseEntity(task, HttpStatus.OK)
     }
 
-    // TODO User functionality
-//    @PostMapping("/addUser")
-//    fun addUser(
-//            @RequestBody user: User
-//    ): ResponseEntity<User> {
-//        usersRepo.save(user)
-//        return ResponseEntity(user, HttpStatus.CREATED)
-//    }
-
 }
