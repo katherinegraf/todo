@@ -3,6 +3,7 @@ import { icon, library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { Tachyons } from 'tachyons';
+import { STATUS_CANCELLED, STATUS_COMPLETED, STATUS_ACTIVE } from './settings'
 
 library.add(fas)
 
@@ -32,20 +33,20 @@ const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask
                                 <div className='complete-btn'>
                                     <label
                                         onClick = {() => {
-                                            if (task.status === "incomplete")
+                                            if (task.status === STATUS_ACTIVE)
                                                 completeTask(task.id);
-                                            else if (task.status === "completed")
+                                            else if (task.status === STATUS_COMPLETED)
                                                 reactivateTask(task.id);
                                         }}
                                     >
-                                        {task.status === "incomplete" 
+                                        {task.status === STATUS_ACTIVE 
                                             ? <FontAwesomeIcon icon="check" />
                                             : <FontAwesomeIcon icon="check-square" />
                                         }
                                     </label>
                                 </div>
                                 <div className={
-                                    task.status === "incomplete"
+                                    task.status === STATUS_ACTIVE
                                         ? 'task-child w-90'
                                         : 'inactive-title task-child w-90'}
                                 >

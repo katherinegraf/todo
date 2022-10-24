@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const STATUS_INCOMPLETE = "incomplete";
+export const STATUS_ACTIVE = "active";
 export const STATUS_COMPLETED = "completed";
 export const STATUS_CANCELLED = "cancelled";
 
