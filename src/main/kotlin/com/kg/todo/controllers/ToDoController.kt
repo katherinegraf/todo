@@ -28,6 +28,9 @@ class ToDoController () {
     @GetMapping("/tasks")
     fun showTasks(): ResponseEntity<List<Task>> {
         val resp = tasksRepo.findAll()
+        if (resp.isEmpty()) {
+            return ResponseEntity(HttpStatus.NOT_FOUND)
+        }
         return ResponseEntity(resp, HttpStatus.OK)
     }
 
@@ -109,14 +112,5 @@ class ToDoController () {
         tasksRepo.save(task)
         return ResponseEntity(task, HttpStatus.OK)
     }
-
-    // TODO User functionality
-//    @PostMapping("/addUser")
-//    fun addUser(
-//            @RequestBody user: User
-//    ): ResponseEntity<User> {
-//        usersRepo.save(user)
-//        return ResponseEntity(user, HttpStatus.CREATED)
-//    }
 
 }
