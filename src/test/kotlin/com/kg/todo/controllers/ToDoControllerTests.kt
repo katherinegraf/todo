@@ -4,7 +4,7 @@ import com.kg.todo.models.Task
 import com.kg.todo.mocks.*
 import com.kg.todo.utils.STATUS_CANCELLED
 import com.kg.todo.utils.STATUS_COMPLETED
-import com.kg.todo.utils.STATUS_INCOMPLETE
+import com.kg.todo.utils.STATUS_ACTIVE
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
@@ -66,7 +66,7 @@ class ToDoControllerTests {
         val resultBody = result.body as List<Task>
         assert(result.statusCode == HttpStatus.OK)
         for (task in resultBody) {
-            assert(task.status == STATUS_INCOMPLETE)
+            assert(task.status == STATUS_ACTIVE)
             assert(task.userId == testUserId)
         }
     }
@@ -86,7 +86,7 @@ class ToDoControllerTests {
         val resultBody = result.body as Task
         addedTaskId = resultBody.id
         assert(result.statusCode == HttpStatus.CREATED)
-        assert(resultBody.status == STATUS_INCOMPLETE)
+        assert(resultBody.status == STATUS_ACTIVE)
         assert(resultBody.title == newTaskMock.title)
     }
 
