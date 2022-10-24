@@ -28,6 +28,9 @@ class ToDoController () {
     @GetMapping("/tasks")
     fun showTasks(): ResponseEntity<List<Task>> {
         val resp = tasksRepo.findAll()
+        if (resp.isEmpty()) {
+            return ResponseEntity(HttpStatus.NOT_FOUND)
+        }
         return ResponseEntity(resp, HttpStatus.OK)
     }
 
