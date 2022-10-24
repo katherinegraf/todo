@@ -17,7 +17,7 @@ class Task (
         val collaborators: Set<User>? = setOf(),
 
         @Column(name = "status")
-        var status: String = STATUS_INCOMPLETE
+        var status: String = STATUS_ACTIVE
 )
 {
     @Id

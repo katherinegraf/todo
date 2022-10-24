@@ -3,7 +3,7 @@ package com.kg.todo.utils
 import com.kg.todo.models.Points
 import java.util.*
 
-val STATUS_INCOMPLETE: String = "incomplete"
+val STATUS_ACTIVE: String = "active"
 val STATUS_COMPLETED: String = "completed"
 val STATUS_CANCELLED: String = "cancelled"
 

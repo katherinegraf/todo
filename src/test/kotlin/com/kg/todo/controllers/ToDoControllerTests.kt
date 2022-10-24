@@ -25,11 +25,19 @@ class ToDoControllerTests {
     @Autowired
     private lateinit var toDo: ToDoController
 
+    // TODO look into test fixtures rather than mocks
+        // might allow you to get rid of the TestMethodOrder
+//    @Fixture
+//    fun scaffolding() {
+//        toDo.addTask()
+//    }
+
     @Test
     @Order(1)
     fun showTasksTest() {
         val result= toDo.showTasks()
         assert(result.statusCode == HttpStatus.OK)
+        // TODO Should this be tested later in the queue so can confirm tasks exist?
     }
 
     @Test

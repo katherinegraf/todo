@@ -41,12 +41,13 @@ class ToDoController () {
         }
         return ResponseEntity(resp, HttpStatus.OK)
     }
+    // TODO should this method be hidden/removed until user functionality added?
 
     @GetMapping("/activeTasks/{userId}")
     fun showActiveUserTasks(
             @PathVariable userId: Long
     ): ResponseEntity<List<Task>> {
-        val resp = tasksRepo.findByStatusAndUserId(STATUS_INCOMPLETE, userId)
+        val resp = tasksRepo.findByStatusAndUserId(STATUS_ACTIVE, userId)
         if (resp.isEmpty()) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
@@ -64,7 +65,7 @@ class ToDoController () {
             userId = 1,
             title = taskTitle,
             collaborators = null,
-            status = STATUS_INCOMPLETE
+            status = STATUS_ACTIVE
         )
         tasksRepo.save(task)
         return ResponseEntity(task, HttpStatus.CREATED)
@@ -104,7 +105,7 @@ class ToDoController () {
         if (task === null) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
-        task.status = STATUS_INCOMPLETE
+        task.status = STATUS_ACTIVE
         tasksRepo.save(task)
         return ResponseEntity(task, HttpStatus.OK)
     }
