@@ -1,2 +1,4 @@
 UPDATE tasks
-SET status (CASE WHEN 'incomplete' then 'active');
+SET status = (CASE status
+    WHEN 'incomplete' THEN 'active'
+    END);
