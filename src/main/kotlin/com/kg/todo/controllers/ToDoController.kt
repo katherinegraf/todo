@@ -2,7 +2,6 @@ package com.kg.todo.controllers
 
 import com.kg.todo.models.*
 import com.kg.todo.repos.TasksRepo
-import com.kg.todo.repos.UsersRepo
 import com.kg.todo.utils.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -22,35 +21,9 @@ class ToDoController () {
     @Autowired
     private lateinit var tasksRepo: TasksRepo
 
-    @Autowired
-    private lateinit var usersRepo: UsersRepo
-
     @GetMapping("/tasks")
     fun showTasks(): ResponseEntity<List<Task>> {
         val resp = tasksRepo.findAll()
-        if (resp.isEmpty()) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-        return ResponseEntity(resp, HttpStatus.OK)
-    }
-
-    @GetMapping("/tasks/{userId}")
-    fun showUserTasks(
-            @PathVariable userId: Long
-    ): ResponseEntity<List<Task>> {
-        val resp = tasksRepo.findAllByUserIdOrderById(userId).filter { it.status != STATUS_CANCELLED }
-        if (resp.isEmpty()) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-        return ResponseEntity(resp, HttpStatus.OK)
-    }
-    // TODO should this method be hidden/removed until user functionality added?
-
-    @GetMapping("/activeTasks/{userId}")
-    fun showActiveUserTasks(
-            @PathVariable userId: Long
-    ): ResponseEntity<List<Task>> {
-        val resp = tasksRepo.findByStatusAndUserId(STATUS_ACTIVE, userId)
         if (resp.isEmpty()) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
@@ -63,11 +36,8 @@ class ToDoController () {
             @RequestPart string: String?, file: MultipartFile?
     ): ResponseEntity<Task> {
         val taskTitle = newTask.title
-        // TODO change userId below to variable after login functionality is created
         val task = Task(
-            userId = 1,
             title = taskTitle,
-            collaborators = null,
             status = STATUS_ACTIVE
         )
         tasksRepo.save(task)
@@ -112,5 +82,4 @@ class ToDoController () {
         tasksRepo.save(task)
         return ResponseEntity(task, HttpStatus.OK)
     }
-
 }

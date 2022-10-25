@@ -7,7 +7,4 @@ import org.springframework.data.repository.CrudRepository
 
 interface TasksRepo : JpaRepository<Task, Long> {
 
-    fun findAllByUserIdOrderById(userId: Long): List<Task>
-
-    fun findByStatusAndUserId(status: String, userId: Long): List<Task>
 }
