@@ -10,17 +10,13 @@ const TaskManager = () => {
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(false);
 
-    // TODO change from static id to variable once there's login functionality
-    const testUserId = 1
-    const fetchUrl = FETCH_URL + testUserId;
-
     useEffect( () => {
         fetchData();
     }, [])
 
     async function fetchData() {
         setLoading(true);
-        let req = await fetch(fetchUrl);
+        let req = await fetch(FETCH_URL);
         if (req.status < 400) {
             let jsonData = await req.json();
             // WIP/NOTES: below is idea from A on toggling task categories 
