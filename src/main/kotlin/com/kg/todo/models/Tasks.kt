@@ -7,7 +7,7 @@ import javax.persistence.*
 @Table(name = "tasks")
 class Task (
         @Column(name = "title")
-        val title: String?,
+        val title: String,
 
         @Column(name = "status")
         var status: String = STATUS_ACTIVE

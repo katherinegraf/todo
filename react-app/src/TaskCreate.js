@@ -10,9 +10,11 @@ const TaskCreate = ({ fetchData }) => {
 
     function updateNewTask (value) {
         setNewTask(value);
+        setInputValue(value);
     }
 
     async function submitNewTask () {
+        console.log("submitting new task");
         let formData = new FormData();
         formData.append('title', newTask);
         let req = {
@@ -29,10 +31,18 @@ const TaskCreate = ({ fetchData }) => {
         }
     }
 
+    function handleEnterKeyPress (e) {
+        console.log(e);
+        if (e.key==13)
+        console.log("I'm in keydown");
+    }
+
     return (
-            <form onSubmit={(event) => {
-                updateNewTask(event.target.value);
-            }}>
+            <form>
+            {/* <form onSubmit={(event) => {
+                updateNewTask(event.target.value)
+            submitNewTask()
+        }}> */}
                 <div className='input-wrapper'>
                     <input 
                         className='new-task'
@@ -46,7 +56,9 @@ const TaskCreate = ({ fetchData }) => {
                     <button 
                         className='input-form-button'
                         onClick= {() => submitNewTask()}
+                        // onKeyDown={(e) => {handleEnterKeyPress(e)}}
                         type='submit'
+                        // type='button'
                     >
                         Submit
                     </button>

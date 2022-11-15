@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository
 
 interface TasksRepo : JpaRepository<Task, Long> {
 
+    fun findAllByOrderById(): List<Task>
+
 }
