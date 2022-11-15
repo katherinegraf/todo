@@ -4,6 +4,7 @@ import com.kg.todo.models.*
 import com.kg.todo.repos.TasksRepo
 import com.kg.todo.utils.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.relational.core.sql.IsNull
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,9 +24,9 @@ class ToDoController () {
 
     @GetMapping("/tasks")
     fun showTasks(): ResponseEntity<List<Task>> {
-        val resp = tasksRepo.findAll()
-        if (resp.isEmpty()) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
+        val allTasks = tasksRepo.findAllByOrderById()
+        val resp = allTasks.filter {
+            it.status == STATUS_ACTIVE || it.status == STATUS_COMPLETED
         }
         return ResponseEntity(resp, HttpStatus.OK)
     }
@@ -36,12 +37,15 @@ class ToDoController () {
             @RequestPart string: String?, file: MultipartFile?
     ): ResponseEntity<Task> {
         val taskTitle = newTask.title
-        val task = Task(
-            title = taskTitle,
-            status = STATUS_ACTIVE
-        )
-        tasksRepo.save(task)
-        return ResponseEntity(task, HttpStatus.CREATED)
+        return if (taskTitle != null && taskTitle != "null") {
+            tasksRepo.save(Task(
+                title = taskTitle,
+                status = STATUS_ACTIVE
+            ))
+            ResponseEntity(HttpStatus.CREATED)
+        } else {
+            ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
     }
 
     @DeleteMapping("/deleteTask/{id}")

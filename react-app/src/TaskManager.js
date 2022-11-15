@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import ExistingTasks from './ExistingTasks';
 import TaskCreate from './TaskCreate';
 import { Tachyons } from 'tachyons';
-import { FETCH_URL, COMPLETE_URL, REACTIVATE_URL, DELETE_URL } from './settings';
+import { FETCH_URL, COMPLETE_URL, REACTIVATE_URL, DELETE_URL, STATUS_ACTIVE } from './settings';
 
 const TaskManager = () => {
 
     const [existingTasks, setExistingTasks] = useState(null);
+    const [allTasks, setAllTasks] = useState(null);
+    const [activeTasks, setActiveTasks] = useState(null);
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(false);
+    const [isActiveFilterEnabled, setIsActiveFilterEnabled] = useState(false);
 
     useEffect( () => {
         fetchData();
@@ -19,14 +22,13 @@ const TaskManager = () => {
         let req = await fetch(FETCH_URL);
         if (req.status < 400) {
             let jsonData = await req.json();
-            // WIP/NOTES: below is idea from A on toggling task categories 
-                // iterate through map of tasks and add to new lists based on status
-                // let allTasks = jsonData;
-                // let completedTasks = jsonData.map((task) => 
-                //     if (task.status == 'complete')
-                //         return task
-                // )
+            setAllTasks(jsonData);
+            let activeTaskList = jsonData.filter(task => task.status === STATUS_ACTIVE);
+            setActiveTasks(activeTaskList);
+            console.log(isActiveFilterEnabled);
+            // setExistingTasks(isActiveFilterEnabled ? activeTasks : allTasks);
             setExistingTasks(jsonData);
+
         } else {
             setError(true);
         }
@@ -75,11 +77,29 @@ const TaskManager = () => {
         setLoading(false);
     }
 
+    function handleViewToggleButtonClick() {
+        console.log(isActiveFilterEnabled);
+        setIsActiveFilterEnabled(!isActiveFilterEnabled);
+        console.log(isActiveFilterEnabled);
+        setExistingTasks(isActiveFilterEnabled ? activeTasks : allTasks)
+    }
+
     return (
         <div className='todoapp' >
             <header className='header'>
                 To Do
             </header>
+            {/* <button className='view-toggler'
+                onClick = {() => {
+                    handleViewToggleButtonClick();
+                    // console.log(isActiveFilterEnabled);
+                    // setIsActiveFilterEnabled(!isActiveFilterEnabled);
+                    // console.log(isActiveFilterEnabled);
+                    // setExistingTasks(isActiveFilterEnabled ? activeTasks : allTasks);
+                }}
+                >
+                {(isActiveFilterEnabled ? 'Show Completed' : 'Hide Completed')}
+            </button> */}
             <TaskCreate 
                 fetchData = { fetchData }
             />
