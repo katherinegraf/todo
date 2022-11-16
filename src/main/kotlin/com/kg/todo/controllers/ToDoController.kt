@@ -4,14 +4,11 @@ import com.kg.todo.models.*
 import com.kg.todo.repos.TasksRepo
 import com.kg.todo.utils.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.relational.core.sql.IsNull
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import java.time.LocalDateTime
-import java.util.*
 import java.util.logging.Logger
 
 @RestController
@@ -48,42 +45,22 @@ class ToDoController () {
         }
     }
 
-    @DeleteMapping("/deleteTask/{id}")
-    fun deleteTask(
-            @PathVariable id: Long
-    ): ResponseEntity<Task> {
-        val task: Task? = tasksRepo.findByIdOrNull(id)
-        if (task === null) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
+    @PatchMapping("task/{id}/{status}")
+    fun updateTaskStatus(
+        @PathVariable id: Long,
+        @PathVariable status: String
+    ): ResponseEntity<Task?> {
+        return if (status in VALID_STATUSES) {
+            val task = tasksRepo.findByIdOrNull(id)
+            if (task === null) {
+                return ResponseEntity(HttpStatus.NOT_FOUND)
+            }
+            task.status = status
+            tasksRepo.save(task)
+            ResponseEntity(task, HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.BAD_REQUEST)
         }
-        task.status = STATUS_CANCELLED
-        tasksRepo.save(task)
-        return ResponseEntity(task, HttpStatus.NO_CONTENT)
     }
 
-    @PatchMapping("completeTask/{id}")
-    fun completeTask(
-            @PathVariable id: Long
-    ): ResponseEntity<Task?> {
-        val task: Task? = tasksRepo.findByIdOrNull(id)
-        if (task === null) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-        task.status = STATUS_COMPLETED
-        tasksRepo.save(task)
-        return ResponseEntity(task, HttpStatus.OK)
-    }
-
-    @PatchMapping("reactivateTask/{id}")
-    fun reactivateTask(
-        @PathVariable id: Long
-    ): ResponseEntity<Task?> {
-        val task: Task? = tasksRepo.findByIdOrNull(id)
-        if (task === null) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-        task.status = STATUS_ACTIVE
-        tasksRepo.save(task)
-        return ResponseEntity(task, HttpStatus.OK)
-    }
 }

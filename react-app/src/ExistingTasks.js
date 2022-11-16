@@ -3,11 +3,11 @@ import { icon, library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { Tachyons } from 'tachyons';
-import { STATUS_COMPLETED, STATUS_ACTIVE } from './settings'
+import { STATUS_COMPLETED, STATUS_ACTIVE, STATUS_CANCELLED } from './settings'
 
 library.add(fas)
 
-const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask, loading }) => {
+const ExistingTasks = ({ existingTasks, updateTaskStatus ,loading }) => {
 
     if (loading) {
         return 'xyz';
@@ -24,9 +24,9 @@ const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask
                                     <label
                                         onClick = {() => {
                                             if (task.status === STATUS_ACTIVE)
-                                                completeTask(task.id);
+                                                updateTaskStatus(task.id, STATUS_COMPLETED)
                                             else if (task.status === STATUS_COMPLETED)
-                                                reactivateTask(task.id);
+                                                updateTaskStatus(task.id, STATUS_ACTIVE)
                                         }}
                                     >
                                         {task.status === STATUS_ACTIVE 
@@ -44,7 +44,7 @@ const ExistingTasks = ({ existingTasks, deleteTask, completeTask, reactivateTask
                                 </div>
                                 <div className='delete-btn'>
                                     <label
-                                        onClick = {() => deleteTask(task.id)}
+                                        onClick = {() => updateTaskStatus(task.id, STATUS_CANCELLED)}
                                     >
                                         < FontAwesomeIcon icon="times" />
                                     </label>
