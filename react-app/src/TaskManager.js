@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ExistingTasks from './ExistingTasks';
 import TaskCreate from './TaskCreate';
 import { Tachyons } from 'tachyons';
-import { FETCH_URL, COMPLETE_URL, REACTIVATE_URL, DELETE_URL, STATUS_ACTIVE } from './settings';
+import { FETCH_URL, UPDATE_TASK_STATUS_URL, STATUS_ACTIVE } from './settings';
 
 const TaskManager = () => {
 
@@ -35,23 +35,9 @@ const TaskManager = () => {
         setLoading(false);
     }
 
-    async function deleteTask(id) {
+    async function updateTaskStatus(id, status) {
         setLoading(true);
-        let url = DELETE_URL + id
-        let req = await fetch(url, {
-            method: 'DELETE',
-        });
-        if (req.status < 400) {
-            fetchData();
-        } else {
-            setError(true);
-        }
-        setLoading(false);
-    }
-
-    async function completeTask(id) {
-        setLoading(true);
-        let url = COMPLETE_URL + id
+        let url = UPDATE_TASK_STATUS_URL + id + status
         let req = await fetch(url, {
             method: 'PATCH',
         });
@@ -61,21 +47,7 @@ const TaskManager = () => {
             setError(true);
         }
         setLoading(false);
-    }
-
-    async function reactivateTask(id) {
-        setLoading(true);
-        let url = REACTIVATE_URL + id
-        let req = await fetch(url, {
-            method: 'PATCH',
-        });
-        if (req.status < 400) {
-            fetchData();
-        } else {
-            setError(true);
-        }
-        setLoading(false);
-    }
+    }    
 
     function handleViewToggleButtonClick() {
         console.log(isActiveFilterEnabled);
@@ -105,9 +77,7 @@ const TaskManager = () => {
             />
             <ExistingTasks
                 existingTasks = { existingTasks }
-                deleteTask = { deleteTask }
-                completeTask = { completeTask }
-                reactivateTask = { reactivateTask }
+                updateTaskStatus = { updateTaskStatus }
             />
         </div> 
     )
